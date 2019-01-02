@@ -1,8 +1,8 @@
 {
-  "name": "node-red-contrib-example-lower-case",
+  "name": "streamr-client",
   "node-red": {
     "nodes": {
-      "lower-case": "lower-case.js"
+      "streamr-client": "streamr-client.js"
     }
   },
   "dependencies": {

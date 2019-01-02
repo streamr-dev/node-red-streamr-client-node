@@ -3,13 +3,13 @@ module.exports = function(RED) {
     const httpsDataApiUrl = 'https://www.streamr.com/api/v1'
     const StreamrClient = require('streamr-client')
 
-    function LowerCaseNode(config) {
+    function StreamrClientNode(config) {
 
         const client = new StreamrClient({
             apiKey: 'XvXw4SgvRBOWLmXS42QNdQr3xNsEE_Qfy8JUE-lHPLWw',
             url: webSocketDataApiUrl,
             restUrl: httpsDataApiUrl
-        })
+        });
 
         const sub = client.subscribe(
           {
@@ -34,5 +34,5 @@ module.exports = function(RED) {
             node.send(msg);
         });*/
     }
-    RED.nodes.registerType("lower-case",LowerCaseNode);
+    RED.nodes.registerType("streamr-client",StreamrClientNode);
 }
