@@ -1,38 +1,70 @@
 module.exports = function(RED) {
+
     const webSocketDataApiUrl = 'wss://www.streamr.com/api/v1/ws'
     const httpsDataApiUrl = 'https://www.streamr.com/api/v1'
     const StreamrClient = require('streamr-client')
+    console.log(this.credentials);
+
+    //todo add node closing
+    //todo add credential configuring
 
     function StreamrClientNode(config) {
-
-        const client = new StreamrClient({
-            apiKey: 'XvXw4SgvRBOWLmXS42QNdQr3xNsEE_Qfy8JUE-lHPLWw',
-            url: webSocketDataApiUrl,
-            restUrl: httpsDataApiUrl
-        });
-
-        const sub = client.subscribe(
-          {
-              stream: '571KML5EScWYhLiNVCf66A'
-          },
-          (message, metadata) => {
-              // This is the message handler which gets called for every incoming message in the Stream.
-              // Do something with the message here!
-              var msg = {}
-              msg.payload = message;
-              console.log(message);
-              this.send(msg);
-
-          }
-      )
-
-        console.log(client)
         RED.nodes.createNode(this,config);
-        /*var node = this;
-        node.on('input', function(msg) {
-            msg.payload = msg.payload.toLowerCase();
-            node.send(msg);
-        });*/
+        this.status({fill:"red",shape:"ring",text:"disconnected"});
+        var node = this;
+        var apikey = this.credentials.apikey;
+        var streamid = this.credentials.streamid;
+
+        if (apikey && streamid) {
+            const client = new StreamrClient({
+                apiKey: this.credentials.apikey,
+                url: webSocketDataApiUrl,
+                restUrl: httpsDataApiUrl
+            });
+
+            const sub = client.subscribe({
+                    stream: this.credentials.streamid
+                },
+                (message, metadata) => {
+                // This is the message handler which gets called for every incoming message in the Stream.
+                // Do something with the message here!
+                var msg = {};
+                msg.payload = message;
+                this.send(msg);
+            });
+
+            sub.on('subscribed', () => {
+                console.log('Subscribed!');
+                this.status({fill:"green",shape:"dot",text:"connected"});
+            });
+
+            client.on('connected', () => {
+                console.log('Yeah, we are connected now!');
+                //this.status({fill:"green",shape:"dot",text:"connected"});
+            });
+
+            client.on('error', () => {
+                this.status({fill:"red",shape:"ring",text:"disconnected"});
+                console.log('Client error!');
+            });
+
+            sub.on('error', () => {
+                console.log('Sub error!');
+                this.status({fill:"red",shape:"ring",text:"disconnected"});
+            });
+
+            client.on('disconnected', () => {
+                console.log('Client disconnected');
+                this.status({fill:"red",shape:"ring",text:"disconnected"});
+            });
+
+        }
+
     }
-    RED.nodes.registerType("streamr-client",StreamrClientNode);
+    RED.nodes.registerType("streamr-client",StreamrClientNode, {
+        credentials: {
+            apikey: {type: "text", required:true},
+            streamid: {type: "text", required:true}
+        }
+    });
 }
