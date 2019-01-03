@@ -34,5 +34,19 @@
 </script>
 
 <script type="text/x-red" data-help-name="streamr-client">
-    <p>Streamr Client Node</p>
+    <p>Connects to Streamr Data-API and subscribes to a given stream.</p>
+    <h3>Configs</h3>
+    <dl class="message-properties">
+        <dt>API-key
+            <span class="property-type">string</span>
+        </dt>
+        <dd> Streamr API key</dd>
+        <dt class="optional">stream id <span class="property-type">string</span></dt>
+        <dd> stream id </dd>
+    </dl>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+         <dt>payload <span class="property-type">object</span></dt>
+         <dd>Streamr stream object</dd>
+    </dl>
 </script>
