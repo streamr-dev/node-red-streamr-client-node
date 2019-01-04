@@ -3,10 +3,9 @@ module.exports = function(RED) {
     const webSocketDataApiUrl = 'wss://www.streamr.com/api/v1/ws'
     const httpsDataApiUrl = 'https://www.streamr.com/api/v1'
     const StreamrClient = require('streamr-client')
-    console.log(this.credentials);
 
     //todo add node closing
-    //todo add credential configuring
+    //todo add pub node
 
     function StreamrClientNode(config) {
         RED.nodes.createNode(this,config);
@@ -56,6 +55,10 @@ module.exports = function(RED) {
             client.on('disconnected', () => {
                 console.log('Client disconnected');
                 this.status({fill:"red",shape:"ring",text:"disconnected"});
+            });
+
+            this.on('close', function() {
+                client.disconnect();
             });
 
         }
