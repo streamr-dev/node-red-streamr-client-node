@@ -2,7 +2,8 @@
   "name": "streamr-client",
   "node-red": {
     "nodes": {
-      "streamr-client": "streamr-client.js"
+      "streamr-client": "streamr-client.js",
+      "streamr-pub": "streamr-pub.js"
     }
   },
   "dependencies": {
