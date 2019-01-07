@@ -3,10 +3,6 @@ module.exports = function(RED) {
     const webSocketDataApiUrl = 'wss://www.streamr.com/api/v1/ws'
     const httpsDataApiUrl = 'https://www.streamr.com/api/v1'
     const StreamrClient = require('streamr-client')
-
-    //todo add node closing
-    //todo add pub node
-
     function StreamrClientNode(config) {
         RED.nodes.createNode(this,config);
         this.status({fill:"red",shape:"ring",text:"disconnected"});
@@ -39,7 +35,7 @@ module.exports = function(RED) {
 
             client.on('connected', () => {
                 console.log('Yeah, we are connected now!');
-                //this.status({fill:"green",shape:"dot",text:"connected"});
+                this.status({fill:"green",shape:"dot",text:"connected"});
             });
 
             client.on('error', () => {
@@ -64,7 +60,7 @@ module.exports = function(RED) {
         }
 
     }
-    RED.nodes.registerType("streamr-client",StreamrClientNode, {
+    RED.nodes.registerType("streamr-sub",StreamrClientNode, {
         credentials: {
             apikey: {type: "text", required:true},
             streamid: {type: "text", required:true}
