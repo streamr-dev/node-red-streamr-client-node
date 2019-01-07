@@ -17,4 +17,4 @@ Find streamr client node under streamr category.
 
 ### Functionalities
 - [x] Subscribing to streams
-- [ ] Publishing to streams
+- [x] Publishing to streams
