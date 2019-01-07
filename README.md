@@ -15,3 +15,6 @@ Start node-red.
 Find streamr client node under streamr category.
 
 
+### Functionalities
+- [x] Subscribing to streams
+- [ ] Publishing to streams
