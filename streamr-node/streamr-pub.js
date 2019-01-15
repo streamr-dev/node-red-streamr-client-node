@@ -9,7 +9,6 @@ module.exports = function(RED) {
         var node = this;
         var apikey = this.credentials.apikey;
         var streamname = this.credentials.stream;
-        console.log(this.credentials)
 
         node.on('input', function(msg) {
             if (apikey && streamname && msg) {

@@ -1,9 +1,9 @@
 {
-  "name": "streamr-client",
+  "name": "node-red-contrib-streamr",
   "node-red": {
     "nodes": {
-      "streamr-sub": "streamr-sub.js",
-      "streamr-pub": "streamr-pub.js"
+      "streamr-sub": "streamr-node/streamr-sub.js",
+      "streamr-pub": "streamr-node/streamr-pub.js"
     }
   },
   "dependencies": {

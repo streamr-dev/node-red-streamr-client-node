@@ -21,11 +21,9 @@ module.exports = function(RED) {
                     stream: this.credentials.streamid
                 },
                 (message, metadata) => {
-                // This is the message handler which gets called for every incoming message in the Stream.
-                // Do something with the message here!
-                var msg = {};
-                msg.payload = message;
-                this.send(msg);
+                    var msg = {};
+                    msg.payload = message;
+                    this.send(msg);
             });
 
             sub.on('subscribed', () => {
@@ -56,9 +54,7 @@ module.exports = function(RED) {
             this.on('close', function() {
                 client.disconnect();
             });
-
         }
-
     }
     RED.nodes.registerType("streamr-sub",StreamrClientNode, {
         credentials: {
