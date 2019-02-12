@@ -9,18 +9,18 @@ module.exports = function (RED) {
             fill: 'red', shape: 'ring', text: 'disconnected'
         })
         const node = this
-        const { apikey } = this.credentials
-        const { streamid } = this.credentials
+        const { apiKey } = this.credentials
+        const { streamId } = this.credentials
 
-        if (apikey && streamid) {
+        if (apiKey && streamId) {
             const client = new StreamrClient({
-                apiKey: this.credentials.apikey,
+                apiKey: this.credentials.apiKey,
                 url: webSocketDataApiUrl,
                 restUrl: httpsDataApiUrl
             })
 
             const sub = client.subscribe({
-                stream: this.credentials.streamid
+                stream: this.credentials.streamId
             },
             (message, metadata) => {
                 const msg = {}
@@ -65,10 +65,10 @@ module.exports = function (RED) {
     }
     RED.nodes.registerType('streamr-sub', StreamrClientNode, {
         credentials: {
-            apikey: {
+            apiKey: {
                 type: 'text', required: true
             },
-            streamid: {
+            streamId: {
                 type: 'text', required: true
             }
         }
