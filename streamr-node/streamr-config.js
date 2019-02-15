@@ -12,9 +12,6 @@ module.exports = function (RED) {
             url: webSocketDataApiUrl,
             restUrl: httpsDataApiUrl
         })
-        /* this.on('close', () => {
-            client.disconnect()
-        }) */
     }
     RED.nodes.registerType('streamr-config', StreamrConfigNode)
 }
