@@ -3,7 +3,8 @@
   "node-red": {
     "nodes": {
       "streamr-sub": "streamr-node/streamr-sub.js",
-      "streamr-pub": "streamr-node/streamr-pub.js"
+      "streamr-pub": "streamr-node/streamr-pub.js",
+      "streamr-config": "streamr-node/streamr-config.js"
     }
   },
   "dependencies": {

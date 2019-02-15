@@ -1,26 +1,24 @@
 const StreamrClient = require('streamr-client')
 
 module.exports = function (RED) {
-    const webSocketDataApiUrl = 'wss://www.streamr.com/api/v1/ws'
-    const httpsDataApiUrl = 'https://www.streamr.com/api/v1'
     function StreamrClientNode(config) {
         RED.nodes.createNode(this, config)
+        this.configNode = RED.nodes.getNode(config.stream)
+        let client
+        let streamId
+        if (this.configNode) {
+            client = this.configNode.client
+            streamId = this.configNode.streamId
+        }
+
         this.status({
             fill: 'red', shape: 'ring', text: 'disconnected'
         })
         const node = this
-        const { apiKey } = this.credentials
-        const { streamId } = this.credentials
 
-        if (apiKey && streamId) {
-            const client = new StreamrClient({
-                apiKey: this.credentials.apiKey,
-                url: webSocketDataApiUrl,
-                restUrl: httpsDataApiUrl
-            })
-
+        if (client instanceof StreamrClient && streamId) {
             const sub = client.subscribe({
-                stream: this.credentials.streamId
+                stream: streamId
             },
             (message, metadata) => {
                 const msg = {}
@@ -57,9 +55,9 @@ module.exports = function (RED) {
                     fill: 'red', shape: 'ring', text: 'disconnected'
                 })
             })
-
-            this.on('close', () => {
-                client.disconnect()
+        } else {
+            this.status({
+                fill: 'red', shape: 'ring', text: 'disconnected'
             })
         }
     }
