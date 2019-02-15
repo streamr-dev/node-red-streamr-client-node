@@ -3,17 +3,14 @@
         category: 'streamr',
         color: '#a6bbcf',
         defaults: {
-            name: {value:""}
+            name: {value:""},
+            stream: {value:"", type:"streamr-config"}
         },
         inputs:0,
         outputs:1,
         icon: "bridge.png",
         label: function() {
             return this.name||"streamr-sub";
-        },
-        credentials: {
-            apikey: {type:"text"},
-            streamid: {type:"text"}
         }
     });
 </script>
@@ -22,15 +19,9 @@
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+        <label for="node-input-stream"><i class="icon-tag"></i> Stream</label>
+        <input type="text" id="node-input-stream">
     </div>
-     <div class="form-row">
-       <label for="node-input-apikey"><i class="icon-tag"></i> API key</label>
-       <input type="text" id="node-input-apikey">
-     </div>
-     <div class="form-row">
-         <label for="node-input-streamid"><i class="icon-tag"></i> Stream Id</label>
-         <input type="text" id="node-input-streamid">
-     </div>
 </script>
 
 <script type="text/x-red" data-help-name="streamr-sub">
@@ -41,8 +32,8 @@
             <span class="property-type">string</span>
         </dt>
         <dd> Streamr API key</dd>
-        <dt class="optional">stream id <span class="property-type">string</span></dt>
-        <dd> stream id </dd>
+        <dt class="optional">Stream id <span class="property-type">string</span></dt>
+        <dd> Stream id </dd>
     </dl>
     <h3>Outputs</h3>
     <dl class="message-properties">

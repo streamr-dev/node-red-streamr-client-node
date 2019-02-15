@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    RED.nodes.registerType('streamr-config',{
+        category: 'config',
+        color: '#a6bbcf',
+        defaults: {
+            apiKey: {value:"", required: true},
+            streamId: {value:"", required: true}
+        },
+        icon: "bridge.png",
+        label: function() {
+            return this.streamId || "streamr-config";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="streamr-config">
+    <div class="form-row">
+        <label for="node-config-input-streamId"><i class="icon-tag"></i> Stream Id</label>
+        <input type="text" id="node-config-input-streamId">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-apiKey"><i class="icon-tag"></i> API key</label>
+        <input type="text" id="node-config-input-apiKey">
+    </div>
+</script>

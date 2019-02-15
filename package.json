@@ -1,13 +1,20 @@
 {
-  "name": "streamr-client",
+  "name": "node-red-contrib-streamr",
   "node-red": {
     "nodes": {
-      "streamr-sub": "streamr-sub.js",
-      "streamr-pub": "streamr-pub.js"
+      "streamr-sub": "streamr-node/streamr-sub.js",
+      "streamr-pub": "streamr-node/streamr-pub.js",
+      "streamr-config": "streamr-node/streamr-config.js"
     }
   },
   "dependencies": {
     "streamr-client": "^0.12.0"
+  },
+  "devDependencies": {
+    "eslint": "5.7.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-import-order": "2.1.4"
   },
   "version": "0.0.1",
   "description": "",
@@ -16,5 +23,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Streamr",
-  "license": "AGPL-3.0-or-later"
+  "license": "Apache-2.0"
 }
