@@ -26,3 +26,10 @@ This library includes config node, publish and subscribe nodes. To be able to ut
 * Initial release
 * Publish and subscribe nodes added
 * Config node added
+
+# License
+This library is under Apache 2.0 license see [LICENSE.md](LICENSE.md)
+
+# TODO
+* Improve error logging
+* Improve documentation
