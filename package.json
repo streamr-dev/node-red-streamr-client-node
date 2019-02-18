@@ -1,5 +1,12 @@
 {
   "name": "node-red-contrib-streamr",
+  "version": "0.0.1",
+  "description": "Streamr node-red integration. Publish and subscribe nodes to integrate to Streamr platform.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/streamr-dev/node-red-streamr-client-node.git"
+  },
   "node-red": {
     "nodes": {
       "streamr-sub": "streamr-node/streamr-sub.js",
@@ -7,6 +14,16 @@
       "streamr-config": "streamr-node/streamr-config.js"
     }
   },
+  "keywords": [
+    "node-red",
+    "node-red-contrib",
+    "contrib",
+    "streamr",
+    "blockchain",
+    "oracle",
+    "api",
+    "iot"
+  ],
   "dependencies": {
     "streamr-client": "^0.12.0"
   },
@@ -16,12 +33,8 @@
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-import-order": "2.1.4"
   },
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Streamr",
-  "license": "Apache-2.0"
+  "author": "Streamr"
 }
