@@ -10,43 +10,38 @@ module.exports = function (RED) {
         const node = this
 
         if (this.configNode) {
-            const { client } = this.configNode
-            const { streamId } = this.configNode
+            const fn = async () => {
+                try {
+                    const { client, streamId } = this.configNode
+                    const stream = await client.getOrCreateStream({
+                        id: streamId
+                    })
 
-            node.on('input', function (msg) {
-                if (client instanceof StreamrClient && msg) {
-                    client.getOrCreateStream({
-                        id: streamId,
-                    }).then((stream) => {
-                        stream.produce(msg.payload)
-                            .catch((err) => {
-                                console.log('Streamr node error:', err)
+                    console.log('client connected')
+
+                    this.status({
+                        fill: 'green', shape: 'dot', text: 'connected'
+                    })
+
+                    node.on('input', async (msg) => {
+                        if (client instanceof StreamrClient && msg) {
+                            stream.publish(msg)
+                            this.log(`published streamr message: ${JSON.stringify(msg)}`)
+                        } else {
+                            this.status({
+                                fill: 'red', shape: 'ring', text: 'disconnected'
                             })
+                        }
                     })
-
-                    client.on('connected', () => {
-                        this.status({
-                            fill: 'green', shape: 'dot', text: 'connected'
-                        })
-                    })
-
-                    client.on('error', () => {
-                        this.status({
-                            fill: 'red', shape: 'ring', text: 'Client error!'
-                        })
-                    })
-
-                    client.on('disconnected', () => {
-                        this.status({
-                            fill: 'red', shape: 'ring', text: 'disconnected'
-                        })
-                    })
-                } else {
+                } catch (e) {
+                    this.error(e)
                     this.status({
                         fill: 'red', shape: 'ring', text: 'disconnected'
                     })
                 }
-            })
+            }
+
+            fn()
         }
     }
     RED.nodes.registerType('streamr-pub', StreamrClientNode)
