@@ -1,16 +1,17 @@
 const StreamrClient = require('streamr-client')
+const { Wallet } = require('ethers')
 const { webSocketDataApiUrl, httpsDataApiUrl } = require('./constants')
 
 module.exports = function (RED) {
     function StreamrConfigNode(n) {
         RED.nodes.createNode(this, n)
 
-        this.apiKey = n.apiKey
+        this.privateKey = n.privateKey || Wallet.createRandom().privateKey
         this.streamId = n.streamId
         this.client = new StreamrClient({
-            apiKey: this.apiKey,
-            url: webSocketDataApiUrl,
-            restUrl: httpsDataApiUrl
+            auth: {
+                privateKey: this.privateKey
+            }
         })
     }
     RED.nodes.registerType('streamr-config', StreamrConfigNode)

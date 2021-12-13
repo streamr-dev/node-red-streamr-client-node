@@ -1,6 +1,6 @@
 const StreamrClient = require('streamr-client')
 
-module.exports = function (RED) {
+module.exports = (RED) => {
     function StreamrClientNode(config) {
         RED.nodes.createNode(this, config)
         this.status({
@@ -9,58 +9,44 @@ module.exports = function (RED) {
         this.configNode = RED.nodes.getNode(config.stream)
 
         if (this.configNode) {
-            const { client } = this.configNode
-            const { streamId } = this.configNode
+            const fn = async () => {
+                const { client, streamId } = this.configNode
 
-            if (client instanceof StreamrClient && streamId) {
-                const sub = client.subscribe({
-                    stream: streamId
-                },
-                (message, metadata) => {
-                    const msg = {}
-                    msg.payload = message
-                    this.send(msg)
-                })
+                if (client instanceof StreamrClient && streamId) {
+                    try {
+                        await client.getOrCreateStream({
+                            id: streamId
+                        })
 
-                sub.on('subscribed', () => {
-                    this.status({
-                        fill: 'green', shape: 'dot', text: 'connected'
-                    })
-                })
+                        client.subscribe({
+                            stream: streamId
+                        },
+                        (message) => {
+                            this.log(`received streamr message: ${JSON.stringify(message)}`)
+                            this.send(message)
+                        })
 
-                client.on('connected', () => {
-                    this.status({
-                        fill: 'green', shape: 'dot', text: 'connected'
-                    })
-                })
-
-                client.on('error', () => {
-                    this.status({
-                        fill: 'red', shape: 'ring', text: 'Client error!'
-                    })
-                })
-
-                sub.on('error', () => {
-                    this.status({
-                        fill: 'red', shape: 'ring', text: 'Sub error!'
-                    })
-                })
-
-                client.on('disconnected', () => {
+                        this.status({
+                            fill: 'green', shape: 'dot', text: 'connected'
+                        })
+                    } catch (e) {
+                        this.error(e)
+                        this.status({
+                            fill: 'red', shape: 'ring', text: 'disconnected'
+                        })
+                    }
+                } else {
                     this.status({
                         fill: 'red', shape: 'ring', text: 'disconnected'
                     })
-                })
-            } else {
-                this.status({
-                    fill: 'red', shape: 'ring', text: 'disconnected'
-                })
+                }
             }
+            fn()
         }
     }
     RED.nodes.registerType('streamr-sub', StreamrClientNode, {
         credentials: {
-            apiKey: {
+            privateKey: {
                 type: 'text', required: true
             },
             streamId: {

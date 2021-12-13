@@ -3,8 +3,8 @@
         category: 'config',
         color: '#a6bbcf',
         defaults: {
-            apiKey: {value:"", required: true},
-            streamId: {value:"", required: true}
+            privateKey: {value:"", required: true},
+            streamId: {value:"0x75a34e85d8aA9ff106740f60CB37fEFc2f0deAF9/node-red-example", required: true}
         },
         icon: "bridge.png",
         label: function() {
@@ -19,7 +19,7 @@
         <input type="text" id="node-config-input-streamId">
     </div>
     <div class="form-row">
-        <label for="node-config-input-apiKey"><i class="icon-tag"></i> API key</label>
+        <label for="node-config-input-apiKey"><i class="icon-tag"></i> Private key</label>
         <input type="text" id="node-config-input-apiKey">
     </div>
 </script>

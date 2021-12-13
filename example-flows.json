@@ -1,0 +1,111 @@
+[
+    {
+        "id": "df6efd346aba6c74",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6c4c18c1f88cca3d",
+        "type": "streamr-config",
+        "streamId": "0x75a34e85d8aA9ff106740f60CB37fEFc2f0deAF9/node-red-example"
+    },
+    {
+        "id": "8ab329147944b043",
+        "type": "streamr-config",
+        "streamId": "0x75a34e85d8aA9ff106740f60CB37fEFc2f0deAF9/node-red-example"
+    },
+    {
+        "id": "724e8619c3d859e2",
+        "type": "streamr-config",
+        "streamId": "0x75a34e85d8aA9ff106740f60CB37fEFc2f0deAF9/node-red-example"
+    },
+    {
+        "id": "bbd3a04c558f543b",
+        "type": "inject",
+        "z": "df6efd346aba6c74",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "foo:bar",
+        "payloadType": "str",
+        "x": 240,
+        "y": 300,
+        "wires": [
+            [
+                "7861283869131319",
+                "a7d1544b60a6208a"
+            ]
+        ]
+    },
+    {
+        "id": "7861283869131319",
+        "type": "debug",
+        "z": "df6efd346aba6c74",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "a7d1544b60a6208a",
+        "type": "streamr-pub",
+        "z": "df6efd346aba6c74",
+        "name": "streamr-publisher",
+        "stream": "6c4c18c1f88cca3d",
+        "x": 580,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "9c87f065ba922162",
+        "type": "streamr-sub",
+        "z": "df6efd346aba6c74",
+        "name": "",
+        "stream": "724e8619c3d859e2",
+        "x": 940,
+        "y": 220,
+        "wires": [
+            [
+                "caf9744a0682ec5c"
+            ]
+        ]
+    },
+    {
+        "id": "caf9744a0682ec5c",
+        "type": "debug",
+        "z": "df6efd346aba6c74",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 240,
+        "wires": []
+    }
+]
